@@ -33,7 +33,6 @@ const defaultLogger = ({ omitQuery = false, prefix = '' } = {}) => ({
 
 class WebpackTeamcityBundleSizePlugin {
     constructor(options) {
-        console.log(options)
         this.callback = Object.assign({}, defaultLogger(options), options.callback || {});
     }
     apply(compiler) {
