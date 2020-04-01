@@ -9,7 +9,8 @@ const defaultLogger = ({ omitQuery = false, prefix = '' } = {}) => ({
         if (process.env && Object.keys(process.env).filter(k => k.indexOf('TEAMCITY') !== -1).length === 0) {
             return;
         }
-        const { assetsByChunkName, assets } = stats.toJson();
+        const { assetsByChunkName, assets } = stats.toJson(),
+            totals = {};
 
         assets.forEach(asset => {
             const chunkName = asset.chunkNames[0];
@@ -25,8 +26,16 @@ const defaultLogger = ({ omitQuery = false, prefix = '' } = {}) => ({
             if (prefix) {
                 assetKey = `${prefix}${assetKey}`
             }
+            const assetExt = path.extname(assetKey) || ''
+            if (!totals[assetExt]) {
+                totals[assetExt] = 0
+            }
+            totals[assetExt] += assetSize
 
             console.log(`##teamcity[buildStatisticValue key='${assetKey}' value='${assetSize}']`);
+            Object.entries(totals).forEach(([ assetExt, totalSize ]) => {
+                console.log(`##teamcity[buildStatisticValue key='${prefix}total-${assetExt}' value='${totalSize}']`);
+            })
         });
     }
 });
