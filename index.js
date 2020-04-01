@@ -6,7 +6,7 @@ const path = require("path");
 const defaultLogger = ({ omitQuery = false, prefix = '' } = {}) => ({
     done: stats => {
         // Only run this if on Team City
-        if (process.env && !process.env.TEAMCITY_VERSION) {
+        if (process.env && Object.keys(process.env).filter(k => k.indexOf('TEAMCITY') !== -1).length === 0) {
             return;
         }
         const { assetsByChunkName, assets } = stats.toJson();
