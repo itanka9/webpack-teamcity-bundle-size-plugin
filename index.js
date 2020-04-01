@@ -3,7 +3,7 @@
  */
 const path = require("path");
 
-const defaultLogger = ({ omitQuery = false, prefix = '' } = {}) => {
+const defaultLogger = ({ omitQuery = false, prefix = '' } = {}) => ({
     done: stats => {
         // Only run this if on Team City
         if (process.env && !process.env.TEAMCITY_VERSION) {
@@ -29,10 +29,11 @@ const defaultLogger = ({ omitQuery = false, prefix = '' } = {}) => {
             console.log(`##teamcity[buildStatisticValue key='${assetKey}' value='${assetSize}']`);
         });
     }
-};
+});
 
 class WebpackTeamcityBundleSizePlugin {
     constructor(options) {
+        console.log(options)
         this.callback = Object.assign({}, defaultLogger(options), options.callback || {});
     }
     apply(compiler) {
