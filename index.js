@@ -26,7 +26,7 @@ const defaultLogger = ({ omitQuery = false, prefix = '' } = {}) => {
                 assetKey = `${prefix}${assetKey}`
             }
 
-            console.log(`##teamcity[buildStatisticValue key='${chunkFullName}' value='${assetSize}']`);
+            console.log(`##teamcity[buildStatisticValue key='${assetKey}' value='${assetSize}']`);
         });
     }
 };
