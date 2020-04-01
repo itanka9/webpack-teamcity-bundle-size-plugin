@@ -1,6 +1,6 @@
 {
   "name": "webpack-teamcity-bundle-size-plugin",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "description": "A webpack plugin that reports individual bundle sizes to Team City using buildStatisticValue service messages.",
   "main": "index.js",
