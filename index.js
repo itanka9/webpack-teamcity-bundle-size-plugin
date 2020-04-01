@@ -19,7 +19,7 @@ const defaultLogger = ({ omitQuery = false, prefix = '' } = {}) => {
 
             const { name: assetName, size: assetSize } = asset;
             let assetKey = path.basename(assetName);
-            if (omitQueryParams) {
+            if (omitQuery) {
                 assetKey = assetKey.split('?')[0]
             }
             if (prefix) {
