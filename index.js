@@ -9,6 +9,7 @@ const defaultLogger = ({ omitQuery = false, prefix = '' } = {}) => ({
         if (process.env && Object.keys(process.env).filter(k => k.indexOf('TEAMCITY') !== -1).length === 0) {
             return;
         }
+        console.log(stats)
         const { assetsByChunkName, assets } = stats.toJson(),
             totals = {};
 
@@ -33,10 +34,10 @@ const defaultLogger = ({ omitQuery = false, prefix = '' } = {}) => ({
             totals[assetExt] += assetSize
 
             console.log(`##teamcity[buildStatisticValue key='${assetKey}' value='${assetSize}']`);
-            Object.entries(totals).forEach(([ assetExt, totalSize ]) => {
-                console.log(`##teamcity[buildStatisticValue key='${prefix}total-${assetExt}' value='${totalSize}']`);
-            })
         });
+        Object.entries(totals).forEach(([ assetExt, totalSize ]) => {
+            console.log(`##teamcity[buildStatisticValue key='${prefix}total-${assetExt}' value='${totalSize}']`);
+        })
     }
 });
 
